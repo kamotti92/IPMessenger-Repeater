@@ -32,7 +32,10 @@ namespace IPMessenger_Repeater
                             Console.WriteLine(DateTime.Now.ToString());
                             Console.WriteLine(sr.ReadToEnd());
                             //メッセージボックス出す
-                            MessageBox.Show("メッセージ受信しました");
+                            //別スレッドにする（止まってフリーズするので）
+                            Task.Run(() => {
+                                MessageBox.Show("メッセージ受信しました");
+                            });
                         }
                     }
                     HttpListenerResponse res = context.Response;
